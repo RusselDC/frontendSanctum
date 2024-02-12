@@ -214,7 +214,7 @@ const handleSubmitVerify = async () =>
             didRender: () => {
                 
                 setTimeout(() => {
-                    window.location.href = "login.html";
+                    window.location.href = "index.html";
                 }, 1500); 
             }
         });
