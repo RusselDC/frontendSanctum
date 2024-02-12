@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Welcome</title>
+    <script src="index.js" defer></script>
+</head>
+<body onload="checkAuth(); getUser();">
+    <div class="flex items-center h-screen w-full justify-center">
+
+        <div class="max-w-xs">
+            <div class="bg-white shadow-xl rounded-lg py-3 px-3">
+                <div class="photo-wrapper p-2">
+                    <img class="w-32 h-28 rounded-full mx-auto" src="https://pbs.twimg.com/media/BtFUrp6CEAEmsml.jpg:large" alt="John Doe">
+                </div>
+                <div class="p-2">
+                    <h3 class="text-center text-xl text-gray-900 font-medium leading-8" id="profilename"></h3>
+                    <div class="text-center text-gray-400 text-xs font-semibold">
+                        <p>Web Developer</p>
+                    </div>
+                   
+        
+                    <div class="text-center my-3">
+                        <button type="button" class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" onclick="logout()">logout</button>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
