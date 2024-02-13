@@ -2,6 +2,79 @@ loginData = {
     'email':"",
     'password':""
 }
+
+
+resetPasswordData = {
+    'token':'',
+    'password':'',
+    'password_confirmation':''
+}
+
+resetData = {
+    'email':''
+};
+
+const handleChangeReset = (element) =>
+{
+    resetData[element.getAttribute('name')] = element.value;
+}
+
+const handleChangeResetVerify = (element) =>
+{
+    resetPasswordData[element.getAttribute('name')] = element.value;
+}
+
+const handleSubmitResetVerify = async () =>
+{
+    
+    const password = document.getElementById('password').value;
+    const cpass = document.getElementById('cpass').value;
+
+    if(password == cpass && password.length > 8 && cpass.length > 8)
+    {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramValue = urlParams.get('token');
+    resetPasswordData['token'] = paramValue;
+    try{
+        
+        const resetverify = await axios.post('http://localhost:8000/api/resetpassword',resetPasswordData)
+        Swal.fire({
+            title: "",
+            text: resetverify.data.message,
+            icon: "success",
+            didRender: () => {
+                
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1500); 
+            }
+        });
+    }catch(error)
+    {
+        Swal.fire("", error.response.data.message, "error");
+        console.log(error.response.data.message)
+    }
+    }else
+    {
+        Swal.fire("", "please check your inputs", "error");
+    }
+    
+    
+}
+
+
+const handleSubmitReset = async e =>
+{
+    try
+    {
+        const reset = await axios.post('http://localhost:8000/api/reset',resetData)
+        Swal.fire("", reset.data.message, "success");
+    }catch(error)
+    {   
+        console.log(error)
+        Swal.fire("", error.response.data.message, "error");
+    }
+}
 const checkAuth = async () =>
 {
     const token = localStorage.getItem('token');
@@ -110,12 +183,12 @@ const handleLogin = async () =>
     try
     {
         const login = await axios.post('http://localhost:8000/api/login',loginData)
-        localStorage.setItem('token',login.data.token)
-        
-        window.location.href = 'user.html'
+        localStorage.setItem('token',login.data.token.plainTextToken)
+        window.location.href = "user.html"
     }
     catch(error)
     {
+        console.log(error)
         Swal.fire("", error.response.data.message, "error");
     }
 }
